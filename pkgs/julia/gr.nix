@@ -1,4 +1,4 @@
-{ mkDerivation, lib, qt5, stdenv, libGL, xorg, fetchurl }:
+{ stdenv, lib, qt5, libGL, xorg, fetchurl }:
 
 let
   mainDependencies = [
@@ -12,7 +12,7 @@ let
     xorg.libXext
   ];
 in
-mkDerivation {
+stdenv.mkDerivation {
   name = "GR.jl";
   version = "4.3.10";
 
