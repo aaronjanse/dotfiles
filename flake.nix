@@ -16,6 +16,7 @@
         julia = pkgs.callPackage ./pkgs/julia { };
         mx-puppet-discord = pkgs.callPackage ./pkgs/mx-puppet-discord { };
         rofi = pkgs.callPackage ./pkgs/rofi.nix { inherit theme; };
+        signal-desktop = pkgs.callPackage ./pkgs/signal-desktop.nix { inherit theme; };
 
         profiles = { };
       };
