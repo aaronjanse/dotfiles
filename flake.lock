@@ -1,38 +1,6 @@
 {
   "nodes": {
-    "juliaFlake": {
-      "inputs": {
-        "nixpkgs": "nixpkgs"
-      },
-      "locked": {
-        "lastModified": 1606204782,
-        "narHash": "sha256-jl/LFJtxNOUMusPU2DeqGJkEEdFot6MCC/B09qt/Gow=",
-        "owner": "flicaflow",
-        "repo": "julia_flake",
-        "rev": "c62173f60510baf7d7697e0099ca0ea79ee04af7",
-        "type": "github"
-      },
-      "original": {
-        "owner": "flicaflow",
-        "repo": "julia_flake",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
-      "locked": {
-        "lastModified": 1604316167,
-        "narHash": "sha256-jukv+jkgzqGKc9qpl9eVIwA5674ZfK99VjHcwpvfs7Y=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "92781c27bd16862e50f6e9b65a01d12d843cca59",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "type": "indirect"
-      }
-    },
-    "nixpkgs_2": {
       "locked": {
         "lastModified": 1614890151,
         "narHash": "sha256-1e+5DPkcjPGsSEd4MSBE8ViysksV5QTW49P4Ab4Pr5Y=",
@@ -49,8 +17,7 @@
     },
     "root": {
       "inputs": {
-        "juliaFlake": "juliaFlake",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs"
       }
     }
   },
