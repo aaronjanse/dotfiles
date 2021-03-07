@@ -5,11 +5,21 @@
 
   outputs = { self, nixpkgs }:
     let
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      pkgs = import nixpkgs {
+        system = "x86_64-linux";
+        config.allowUnfree = true;
+      };
       theme = import ./theme.nix;
     in
     {
       packages.x86_64-linux = {
+        # Combine nixpkgs with the packages added here
+        pkgs = pkgs // removeAttrs self.packages.x86_64-linux [ "profiles" "pkgs" ];
+
+        profiles = import ./profile.nix {
+          inherit (self.packages.x86_64-linux) pkgs;
+        };
+
         alacritty = pkgs.callPackage ./pkgs/alacritty.nix { inherit theme; };
         cilium = pkgs.callPackage ./pkgs/cilium.nix { };
         foliate = pkgs.libsForQt5.callPackage ./pkgs/foliate.nix { };
@@ -20,8 +30,6 @@
         rofi = pkgs.callPackage ./pkgs/rofi.nix { inherit theme; };
         signal-desktop = pkgs.callPackage ./pkgs/signal-desktop.nix { inherit theme; };
         xsecurelock = pkgs.callPackage ./pkgs/xsecurelock.nix { };
-
-        profiles = { };
       };
     };
 }
