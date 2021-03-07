@@ -67,6 +67,7 @@ rec {
       gnome3.nautilus
       gnumake
       go
+      gopls
       hexyl
       htop
       imagemagick
@@ -76,6 +77,7 @@ rec {
       ipfs-cluster
       jetbrains.idea-community
       julia
+      kak-lsp
       kakoune
       kitty
       krita
