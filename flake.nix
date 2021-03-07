@@ -15,6 +15,7 @@
         foliate = pkgs.libsForQt5.callPackage ./pkgs/foliate.nix { };
         git = pkgs.callPackage ./pkgs/git.nix { };
         julia = pkgs.callPackage ./pkgs/julia { };
+        lemonbar-xft = pkgs.callPackage ./pkgs/lemonbar-xft.nix { };
         mx-puppet-discord = pkgs.callPackage ./pkgs/mx-puppet-discord { };
         rofi = pkgs.callPackage ./pkgs/rofi.nix { inherit theme; };
         signal-desktop = pkgs.callPackage ./pkgs/signal-desktop.nix { inherit theme; };
