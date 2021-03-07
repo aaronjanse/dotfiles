@@ -34,5 +34,3 @@ function customize_keys(repl)
 end
 
 atreplinit(customize_keys)
-
-println("HELLO WORLD")
