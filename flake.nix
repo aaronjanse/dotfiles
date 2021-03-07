@@ -5,15 +5,29 @@
 
   outputs = { self, nixpkgs }:
     let
+      theme = import ./theme.nix;
       pkgs = import nixpkgs {
         system = "x86_64-linux";
         config.allowUnfree = true;
       };
-      theme = import ./theme.nix;
     in
     {
+      # This defines my laptop's operating system. Here, I configure:
+      # - hardware-specific settings (e.g. wifi, filesystem, gpu)
+      # - workflow-specific settings (e.g. keybindings, window manager)
+      nixosConfigurations.xps-ajanse = nixpkgs.lib.nixosSystem {
+        inherit (self.packages.x86_64-linux) pkgs;
+        system = "x86_64-linux";
+        modules = [
+          ./configuration.nix
+          ./hardware/xps.nix
+        ];
+      };
+
+      # This defines new packages along with packages I've modified. I use
+      # wrapProgram to telling packages to look for dotfiles in /nix/store.
       packages.x86_64-linux = {
-        # Combine nixpkgs with the packages added here
+        # Combine nixpkgs with the packages below
         pkgs = pkgs // removeAttrs self.packages.x86_64-linux [ "profiles" "pkgs" ];
 
         profiles = import ./profile.nix {
@@ -26,12 +40,13 @@
         foliate = pkgs.libsForQt5.callPackage ./pkgs/foliate.nix { };
         git = pkgs.callPackage ./pkgs/git.nix { };
         julia = pkgs.callPackage ./pkgs/julia { };
-        lemonbar-xft = pkgs.callPackage ./pkgs/lemonbar-xft.nix { };
+        lemonbar-xft = pkgs.callPackage ./pkgs/lemonbar-xft { };
         mx-puppet-discord = pkgs.callPackage ./pkgs/mx-puppet-discord { };
         rofi = pkgs.callPackage ./pkgs/rofi.nix { inherit theme; };
         signal-desktop = pkgs.callPackage ./pkgs/signal-desktop.nix { inherit theme; };
         vscode = pkgs.callPackage ./pkgs/vscode.nix { };
         xsecurelock = pkgs.callPackage ./pkgs/xsecurelock.nix { };
+        zsh = pkgs.callPackage ./pkgs/zsh { };
       };
     };
 }

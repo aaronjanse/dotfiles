@@ -13,8 +13,6 @@ symlinkJoin
   postBuild = ''
     mkdir $out/etc
     cp ${config} $out/etc/alacritty.yml
-    rm -rf $out/bin
-    makeWrapper ${alacritty}/bin/alacritty $out/bin/alacritty \
-                --add-flags "--config-file=$out/etc/alacritty.yml"
+    wrapProgram $out/bin/alacritty --add-flags "--config-file=$out/etc/alacritty.yml"
   '';
 }

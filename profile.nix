@@ -17,6 +17,7 @@ rec {
       fzf
       git
       jq
+      python3
       ripgrep
       tree
       unzip
