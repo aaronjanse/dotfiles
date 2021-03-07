@@ -29,6 +29,7 @@
         mx-puppet-discord = pkgs.callPackage ./pkgs/mx-puppet-discord { };
         rofi = pkgs.callPackage ./pkgs/rofi.nix { inherit theme; };
         signal-desktop = pkgs.callPackage ./pkgs/signal-desktop.nix { inherit theme; };
+        vscode = pkgs.callPackage ./pkgs/vscode.nix { };
         xsecurelock = pkgs.callPackage ./pkgs/xsecurelock.nix { };
       };
     };
