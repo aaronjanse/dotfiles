@@ -1,9 +1,18 @@
-{ zsh, zsh-autosuggestions, zsh-syntax-highlighting, fzf, gnupg, symlinkJoin, writeText, makeWrapper }:
+{ zsh, zsh-autosuggestions, zsh-syntax-highlighting, nix-zsh-completions, fzf, gnupg, symlinkJoin, writeText, makeWrapper }:
 
 let config = writeText ".zshrc" ''
+  fpath+=(${nix-zsh-completions}/share/zsh/site-functions)
+  for p in ''${(z)NIX_PROFILES}; do
+    fpath+=($p/share/zsh/site-functions $p/share/zsh/$ZSH_VERSION/functions $p/share/zsh/vendor-completions)
+  done
+
+  autoload -U compinit && compinit
+
+  source ${nix-zsh-completions}/share/zsh/plugins/nix/nix-zsh-completions.plugin.zsh
   source ${zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
   source ${zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
   source ${fzf}/share/fzf/key-bindings.zsh
+
 
   setopt HIST_IGNORE_DUPS
   setopt HIST_IGNORE_SPACE

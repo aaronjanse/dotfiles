@@ -42,11 +42,14 @@
         julia = pkgs.callPackage ./pkgs/julia { };
         lemonbar-xft = pkgs.callPackage ./pkgs/lemonbar-xft { };
         mx-puppet-discord = pkgs.callPackage ./pkgs/mx-puppet-discord { };
+        nix-zsh-completions = pkgs.callPackage ./pkgs/nix-zsh-completions.nix { };
         rofi = pkgs.callPackage ./pkgs/rofi.nix { inherit theme; };
         signal-desktop = pkgs.callPackage ./pkgs/signal-desktop.nix { inherit theme; };
         vscode = pkgs.callPackage ./pkgs/vscode.nix { };
         xsecurelock = pkgs.callPackage ./pkgs/xsecurelock.nix { };
-        zsh = pkgs.callPackage ./pkgs/zsh { };
+        zsh = pkgs.callPackage ./pkgs/zsh {
+          inherit (self.packages.x86_64-linux) nix-zsh-completions;
+        };
       };
     };
 }
