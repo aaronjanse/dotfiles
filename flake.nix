@@ -21,6 +21,7 @@
         };
 
         alacritty = pkgs.callPackage ./pkgs/alacritty.nix { inherit theme; };
+        cal-wallpaper = pkgs.callPackage ./pkgs/cal-wallpaper { inherit theme; };
         cilium = pkgs.callPackage ./pkgs/cilium.nix { };
         foliate = pkgs.libsForQt5.callPackage ./pkgs/foliate.nix { };
         git = pkgs.callPackage ./pkgs/git.nix { };
