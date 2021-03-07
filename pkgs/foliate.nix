@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , fetchFromGitHub
 , meson
 , ninja
@@ -69,7 +70,7 @@ stdenv.mkDerivation rec {
     wrapGApp $out/bin/com.github.johnfactotum.Foliate
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Simple and modern GTK eBook reader";
     homepage = "https://johnfactotum.github.io/foliate/";
     license = licenses.gpl3Plus;

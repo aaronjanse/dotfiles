@@ -70,8 +70,8 @@ in
   boot.kernelPackages =
     let
       linux_pkg =
-        { stdenv, buildPackages, fetchurl, perl, buildLinux, modDirVersionArg ? null, ... } @ args:
-          with stdenv.lib;
+        { stdenv, lib, buildPackages, fetchurl, perl, buildLinux, modDirVersionArg ? null, ... } @ args:
+          with lib;
           buildLinux (
             args // rec {
               version = "5.3.16";

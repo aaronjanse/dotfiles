@@ -29,7 +29,7 @@ symlinkJoin {
             #   };
             #   buildInputs = [ jupyter ];
             #   meta = {
-            #     license = stdenv.lib.licenses.unfree;
+            #     license = lib.licenses.unfree;
             #   };
             # })
             ms-python.vscode-pylance
