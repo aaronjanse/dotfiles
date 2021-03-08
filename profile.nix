@@ -50,6 +50,7 @@ rec {
       cryfs
       cryptsetup
       dbeaver
+      direnv
       discord
       docker
       docker-compose
@@ -93,6 +94,7 @@ rec {
       mullvad-vpn
       multimc
       nheko
+      nix-direnv
       nixpkgs-fmt
       nodejs
       nodePackages.insect

@@ -37,6 +37,7 @@
         alacritty = pkgs.callPackage ./pkgs/alacritty.nix { inherit theme; };
         cal-wallpaper = pkgs.callPackage ./pkgs/cal-wallpaper { inherit theme; };
         cilium = pkgs.callPackage ./pkgs/cilium.nix { };
+        direnv = pkgs.callPackage ./pkgs/direnv.nix { };
         foliate = pkgs.libsForQt5.callPackage ./pkgs/foliate.nix { };
         git = pkgs.callPackage ./pkgs/git.nix { };
         julia = pkgs.callPackage ./pkgs/julia { };
@@ -48,7 +49,7 @@
         vscode = pkgs.callPackage ./pkgs/vscode.nix { };
         xsecurelock = pkgs.callPackage ./pkgs/xsecurelock.nix { };
         zsh = pkgs.callPackage ./pkgs/zsh {
-          inherit (self.packages.x86_64-linux) nix-zsh-completions;
+          inherit (self.packages.x86_64-linux) nix-zsh-completions direnv;
         };
       };
     };

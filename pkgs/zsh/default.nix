@@ -1,4 +1,4 @@
-{ zsh, zsh-autosuggestions, zsh-syntax-highlighting, nix-zsh-completions, fzf, gnupg, symlinkJoin, writeText, makeWrapper }:
+{ zsh, zsh-autosuggestions, zsh-syntax-highlighting, nix-zsh-completions, fzf, gnupg, direnv, symlinkJoin, writeText, makeWrapper }:
 
 let config = writeText ".zshrc" ''
   fpath+=(${nix-zsh-completions}/share/zsh/site-functions)
@@ -13,6 +13,9 @@ let config = writeText ".zshrc" ''
   source ${zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
   source ${fzf}/share/fzf/key-bindings.zsh
 
+  eval "$(${direnv}/bin/direnv hook zsh | sed 's/\/nix\/store.\+\/direnv/${
+    builtins.replaceStrings ["/"] ["\\/"] "${direnv}"
+  }\/bin\/direnv/')"
 
   setopt HIST_IGNORE_DUPS
   setopt HIST_IGNORE_SPACE
