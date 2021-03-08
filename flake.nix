@@ -38,6 +38,7 @@
         cal-wallpaper = pkgs.callPackage ./pkgs/cal-wallpaper { inherit theme; };
         cilium = pkgs.callPackage ./pkgs/cilium.nix { };
         direnv = pkgs.callPackage ./pkgs/direnv.nix { };
+        dunst = pkgs.callPackage ./pkgs/dunst { };
         foliate = pkgs.libsForQt5.callPackage ./pkgs/foliate.nix { };
         git = pkgs.callPackage ./pkgs/git.nix { };
         julia = pkgs.callPackage ./pkgs/julia { };

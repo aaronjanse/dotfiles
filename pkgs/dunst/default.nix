@@ -14,6 +14,6 @@ symlinkJoin
   ];
   buildInputs = [ makeWrapper ];
   postBuild = ''
-    makeProgram $out/bin/dunst --add-flags "-config ${./dunstrc.ini}"
+    wrapProgram $out/bin/dunst --add-flags "-config ${./dunstrc.ini}"
   '';
 }
