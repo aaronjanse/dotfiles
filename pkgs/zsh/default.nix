@@ -14,7 +14,7 @@ let config = writeText ".zshrc" ''
   source ${fzf}/share/fzf/key-bindings.zsh
 
   eval "$(${direnv}/bin/direnv hook zsh | sed 's/\/nix\/store.\+\/direnv/${
-    builtins.replaceStrings ["/"] ["\\/"] "${direnv}"
+    builtins.replaceStrings [ "/" ] [ "\\/" ] "${direnv}"
   }\/bin\/direnv/')"
 
   setopt HIST_IGNORE_DUPS
