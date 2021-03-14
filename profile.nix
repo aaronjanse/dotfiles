@@ -46,6 +46,7 @@ rec {
       name = "ajanse-env-common";
       # Include all package in `common` above
       paths = [ common ] ++ (with pkgs; [
+        elvish
         age
         alacritty
         anki
