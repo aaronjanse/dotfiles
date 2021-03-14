@@ -81,6 +81,7 @@ rec {
       julia
       kak-lsp
       kakoune
+        kakounePlugins.kak-fzf
       kitty
       krita
       kubectl
