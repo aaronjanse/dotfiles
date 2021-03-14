@@ -262,6 +262,7 @@ in
 
   /* HiDPI */
 
+  services.gpm.enable = true;
   console = {
     earlySetup = true;
     font = "sun12x22";
