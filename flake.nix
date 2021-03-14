@@ -50,6 +50,7 @@
         vscode = pkgs.callPackage ./pkgs/vscode.nix { };
         xsecurelock = pkgs.callPackage ./pkgs/xsecurelock.nix { };
         zsh = pkgs.callPackage ./pkgs/zsh {
+          inherit theme;
           inherit (self.packages.x86_64-linux) nix-zsh-completions direnv;
         };
       };

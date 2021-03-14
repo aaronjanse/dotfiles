@@ -1,6 +1,7 @@
 { config, lib, pkgs, options, ... }:
 
 let
+  theme = import ./theme.nix;
   secrets = pkgs.callPackage
     (import "${fetchGit {
       url = "ssh://git@github.com/aaronjanse/secrets.git";
@@ -263,6 +264,7 @@ in
   console = {
     earlySetup = true;
     font = "sun12x22";
+    colors = theme.colors16;
   };
   services.xserver.dpi = 192;
   services.xserver.displayManager.sessionCommands = ''

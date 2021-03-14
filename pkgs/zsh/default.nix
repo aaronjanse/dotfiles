@@ -1,4 +1,4 @@
-{ zsh, zsh-autosuggestions, zsh-syntax-highlighting, nix-zsh-completions, fzf, gnupg, direnv, symlinkJoin, writeText, makeWrapper }:
+{ zsh, zsh-autosuggestions, zsh-syntax-highlighting, nix-zsh-completions, fzf, gnupg, direnv, symlinkJoin, writeText, makeWrapper, theme }:
 
 let config = writeText ".zshrc" ''
   fpath+=(${nix-zsh-completions}/share/zsh/site-functions)
@@ -50,6 +50,13 @@ let config = writeText ".zshrc" ''
       echo "$@" >> ~/.wish
     fi
   }
+
+  if [ "$TERM" = "linux" ]; then
+    ${builtins.concatStringsSep "\n" (map
+      (color: "echo -en '\\e]P0${color}'")
+    theme.colors16)}
+    clear
+  fi
 
   precmd () { PS1=$(zsh ${./prompt.sh}) }
 ''; in
