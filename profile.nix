@@ -30,7 +30,8 @@ rec {
   };
 
   # Installed on personal systems with a GUI
-  gui = pkgs.buildEnv {
+  gui = pkgs.buildEnv
+    {
     name = "ajanse-env-common";
     # Include all package in `common` above
     paths = [ common ] ++ (with pkgs; [
