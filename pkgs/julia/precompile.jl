@@ -1,9 +1,7 @@
-using Plots, UnicodePlots, Primes, Latexify, Symbolics, REPL
+using Plots, UnicodePlots, Primes, Latexify, Symbolics, REPL, Pkg, Unitful
 
 plot(x->x^2)
 lineplot(x->x^2)
-
-using Unitful
 
 println(isprime(17))
 

@@ -52,12 +52,14 @@ in
 pkgs.symlinkJoin {
   name = "julia-custom";
   paths = [
-    juliaWithDepot
+    pkgs.julia
   ];
   buildInputs = [ makeWrapper ];
   postBuild = ''
+    ls -lah $out/bin
     rm $out/bin/julia
     mkdir -p $out/etc/julia
+    rm $out/etc/julia/startup.jl
     cp ${./startup.jl} $out/etc/julia/startup.jl
     makeWrapper ${juliaWithDepot}/bin/julia $out/bin/julia \
                 --add-flags "-J${juliaSysimage}" \
