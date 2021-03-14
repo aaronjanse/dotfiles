@@ -219,6 +219,7 @@ in
 
   services.xserver = {
     enable = true;
+    useGlamor = true;
     windowManager.i3 = {
       enable = true;
       package = pkgs.i3-gaps;
