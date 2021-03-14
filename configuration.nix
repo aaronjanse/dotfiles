@@ -52,6 +52,7 @@ in
     intel-media-driver
     v4l-utils
     gnome3.adwaita-icon-theme
+    vanilla-dmz
   ];
 
   services.postgresql = {
@@ -269,14 +270,14 @@ in
   services.xserver.dpi = 192;
   services.xserver.displayManager.sessionCommands = ''
     ${pkgs.xorg.xrdb}/bin/xrdb -merge <<EOF
-      Xft.dpi: 192
+      Xcursor.theme: Vanilla-DMZ
+      Xcursor.size: 32
     EOF
     ${pkgs.xorg.xrandr}/bin/xrandr --output eDP-1 --scale 1.25x1.25
   '';
   environment.variables = {
     GDK_SCALE = "1.5";
     GDK_DPI_SCALE = "0.75";
-    XCURSOR_SIZE = "64";
     QT_AUTO_SCREEN_SCALE_FACTOR = "1";
   };
 
