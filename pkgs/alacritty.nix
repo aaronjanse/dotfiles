@@ -30,7 +30,7 @@ let config = writeText "alacritty.yaml" (builtins.toJSON {
   env.TERM = "xterm-256color";
   font = {
     normal.family = "JuliaMono";
-    size = 10;
+    size = 9;
   };
 }); in
 symlinkJoin
