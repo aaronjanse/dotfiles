@@ -1,10 +1,12 @@
 { config, lib, pkgs, options, ... }:
 
 let
-  secrets = pkgs.callPackage (import "${fetchGit {
+  secrets = pkgs.callPackage
+    (import "${fetchGit {
       url = "ssh://git@github.com/aaronjanse/secrets.git";
       rev = "04a3fba39cb448ab1a8cfab9a7a518eb4a6c1ac0";
-  }}") { };
+  }}")
+    { };
 in
 {
   /* Nix preferences */
