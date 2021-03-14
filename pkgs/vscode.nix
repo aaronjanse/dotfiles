@@ -32,6 +32,7 @@ symlinkJoin {
             #     license = lib.licenses.unfree;
             #   };
             # })
+        dbaeumer.vscode-eslint
             ms-python.vscode-pylance
             james-yu.latex-workshop
             ms-python.python
