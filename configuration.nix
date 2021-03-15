@@ -139,8 +139,8 @@ in
 
   /* Shell */
 
-  users.defaultUserShell = pkgs.zsh; # pkgs.julia
-  environment.pathsToLink = [ "/share/zsh" ];
+  users.defaultUserShell = pkgs.fish; # pkgs.julia
+  environment.pathsToLink = [ "/share/zsh" "/share/fish" ];
   environment.variables.MOZ_X11_EGL = "1";
 
   /* Networking */

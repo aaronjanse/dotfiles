@@ -47,6 +47,7 @@ rec {
       # Include all package in `common` above
       paths = [ common ] ++ (with pkgs; [
         elvish
+        fish
         age
         alacritty
         anki
