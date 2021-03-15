@@ -30,7 +30,7 @@ function customize_keys(repl)
     @eval cross(r, n) = reshape(collect(Base.product(repeat([r], n)...)), 1, :)
     @eval macro sh_cmd(s_str)
       s_expr = Meta.parse(string('"', escape_string(s_str), '"'))
-      return run(Base.cmd_gen(("sh", "-c", s_expr)))
+      return split(String(read(Base.cmd_gen(("sh", "-c", s_expr)))), '\n')
     end
 
     # launch_shell()
