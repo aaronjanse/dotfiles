@@ -69,8 +69,7 @@ pkgs.symlinkJoin {
                 --prefix JULIA_DEPOT_PATH : \~/.julia \
                 --set JULIA_LOAD_PATH "@:@#.#:@stdenv:${./.}" \
                 --set JULIA_BINDIR $out/bin \
-                --add-flags "--banner=no" \
-                --set SHELL "${pkgs.zsh}/bin/zsh"
+                --add-flags "--banner=no"
   '';
   passthru = {
     shellPath = "/bin/julia";
