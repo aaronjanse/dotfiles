@@ -19,7 +19,7 @@ let config = writeText "alacritty.yaml" (builtins.toJSON {
       green = "#50fa7b";
       magenta = "#ff79c6";
       red = "#ff5555";
-      white = theme.backgroundSecondary;
+      white = "#f8f8f2";
       yellow = "#f1fa8c";
     };
     primary = {
