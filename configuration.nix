@@ -139,7 +139,7 @@ in
 
   /* Shell */
 
-  users.defaultUserShell = pkgs.fish; # pkgs.julia
+  users.defaultUserShell = pkgs.julia;
   environment.pathsToLink = [ "/share/zsh" "/share/fish" ];
   environment.variables.MOZ_X11_EGL = "1";
 

@@ -383,6 +383,12 @@ git-tree-sha1 = "c9f380c76d8aaa1fa7ea9cf97bddbc0d5b15adc2"
 uuid = "cd3eb016-35fb-5094-929b-558a96fad6f3"
 version = "0.9.5"
 
+[[HypothesisTests]]
+deps = ["Combinatorics", "Distributions", "LinearAlgebra", "Random", "Rmath", "Roots", "Statistics", "StatsBase"]
+git-tree-sha1 = "552892528991c3e17eb60e623f1ac94c0663eb7d"
+uuid = "09f84164-cd44-5f33-b23f-e6b0d136a0d5"
+version = "0.10.2"
+
 [[IfElse]]
 git-tree-sha1 = "28e837ff3e7a6c3cdb252ce49fb412c8eb3caeef"
 uuid = "615f187c-cbe4-4ef1-ba3b-2fcf58d6d173"
@@ -847,6 +853,12 @@ git-tree-sha1 = "57d8440b0c7d98fc4f889e478e80f268d534c9d5"
 uuid = "189a3867-3050-52da-a836-e630ba90ab69"
 version = "1.0.0"
 
+[[ReplMaker]]
+deps = ["REPL", "Unicode"]
+git-tree-sha1 = "18bf7b1b917fb7c0eca7e273c3f97ab3e7e717c2"
+uuid = "b873ce64-0db9-51f5-a568-4457d8e49576"
+version = "0.2.4"
+
 [[Requires]]
 deps = ["UUIDs"]
 git-tree-sha1 = "cfbac6c1ed70c002ec6361e7fd334f02820d6419"
@@ -860,10 +872,16 @@ uuid = "79098fc4-a85e-5d69-aa6a-4863f24498fa"
 version = "0.6.1"
 
 [[Rmath_jll]]
-deps = ["Libdl", "Pkg"]
-git-tree-sha1 = "d76185aa1f421306dec73c057aa384bad74188f0"
+deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
+git-tree-sha1 = "1b7bf41258f6c5c9c31df8c1ba34c1fc88674957"
 uuid = "f50d1b31-88e8-58de-be2c-1cc44531875f"
-version = "0.2.2+1"
+version = "0.2.2+2"
+
+[[Roots]]
+deps = ["Printf"]
+git-tree-sha1 = "369e25546984dff5df351bc056fccc30de615080"
+uuid = "f2b01f46-fcfa-551c-844a-d8ac1e96c665"
+version = "1.0.8"
 
 [[RuntimeGeneratedFunctions]]
 deps = ["ExprTools", "SHA", "Serialization"]
@@ -970,6 +988,12 @@ git-tree-sha1 = "7c88f73b759ae16a4a1af8bda7a9563471a7baf5"
 uuid = "f3b207a7-027a-5e70-b257-86293d7955fd"
 version = "0.14.19"
 
+[[StringParserPEG]]
+deps = ["InteractiveUtils", "Test"]
+git-tree-sha1 = "c29fb76a8890fdd9e8a63b188c23ab65b9e8fb4c"
+uuid = "b0c8ea40-1aeb-11ea-0927-b51424bf2dfe"
+version = "1.1.0"
+
 [[StructArrays]]
 deps = ["Adapt", "DataAPI", "Tables"]
 git-tree-sha1 = "26ea43b4be7e919a2390c3c0f824e7eb4fc19a0a"
@@ -982,9 +1006,9 @@ uuid = "4607b0f0-06f3-5cda-b6b1-a6196a1729e9"
 
 [[SymbolicUtils]]
 deps = ["AbstractAlgebra", "AbstractTrees", "Combinatorics", "ConstructionBase", "DataStructures", "IfElse", "LabelledArrays", "NaNMath", "Setfield", "SparseArrays", "SpecialFunctions", "StaticArrays", "TimerOutputs"]
-git-tree-sha1 = "13f8f6de960ad2213728ccedc7604d3f471b77a0"
+git-tree-sha1 = "7176e06fb4ad726e828c72642000a2076808ea58"
 uuid = "d1185830-fcd6-423d-90d6-eec64667417b"
-version = "0.9.0"
+version = "0.9.1"
 
 [[Symbolics]]
 deps = ["AbstractAlgebra", "DiffRules", "Distributions", "DocStringExtensions", "IfElse", "Latexify", "Libdl", "LinearAlgebra", "MacroTools", "NaNMath", "RecipesBase", "Reexport", "RuntimeGeneratedFunctions", "SciMLBase", "SparseArrays", "SpecialFunctions", "SymbolicUtils", "TreeViews"]

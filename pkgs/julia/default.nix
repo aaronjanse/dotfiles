@@ -46,7 +46,10 @@ let
     mkdir $TMP/jl
     cp ${./Manifest.toml} Manifest.toml
     cp ${./Project.toml} Project.toml
-    JULIA_DEPOT_PATH=$TMP/jl ${juliaWithDepot}/bin/julia ${./generate_sysimage.jl} ${./precompile.jl} $out
+    cp ${./precompile.jl} precompile.jl
+    chmod +w precompile.jl
+    cat ${./startup.jl} >> precompile.jl
+    JULIA_DEPOT_PATH=$TMP/jl ${juliaWithDepot}/bin/julia ${./generate_sysimage.jl} precompile.jl $out
   '';
 in
 pkgs.symlinkJoin {
@@ -65,7 +68,9 @@ pkgs.symlinkJoin {
                 --add-flags "-J${juliaSysimage}" \
                 --prefix JULIA_DEPOT_PATH : \~/.julia \
                 --set JULIA_LOAD_PATH "@:@#.#:@stdenv:${./.}" \
-                --set JULIA_BINDIR $out/bin
+                --set JULIA_BINDIR $out/bin \
+                --add-flags "--banner=no" \
+                --set SHELL "${pkgs.zsh}/bin/zsh"
   '';
   passthru = {
     shellPath = "/bin/julia";
