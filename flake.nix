@@ -54,5 +54,9 @@
           inherit (self.packages.x86_64-linux) nix-zsh-completions direnv;
         };
       };
+
+      apps.x86_64-linux = {
+        julia = { type = "app"; program = "${self.packages.x86_64-linux.julia}/bin/julia"; };
+      };
     };
 }
