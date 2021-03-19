@@ -77,31 +77,85 @@ end
 @eval cross(r, n) = reshape(collect(Base.product(repeat([r], n)...)), 1, :)
 @eval macro sh_cmd(s_str)
     s_expr = Meta.parse(string('"', escape_string(s_str), '"'))
-    return split(String(read(Base.cmd_gen(("sh", "-c", s_expr)))), '\n')
+    return split(String(read(Base.cmd_gen(("fish", "-c", s_expr)))), '\n')
 end
 
-atreplinit() do repl
+
+function is_shell_command(s)
+    args = split(s, ' ')
+    !isnothing(Sys.which(args[1])) && args[1] != "import" || args[1] == "cd"
+end
+
+struct JulishCompletionProvider <: REPL.LineEdit.CompletionProvider end
+
+def_completions = REPL.REPLCompletionProvider()
+
+function REPL.complete_line(c::JulishCompletionProvider, s::REPL.LineEdit.PromptState)
+    partial = REPL.beforecursor(s.input_buffer)
+    if is_shell_command(partial)
+        completion_command = Base.shell_escape(`complete -C "$partial"`)
+        fish_complete = readlines(`fish -c "$completion_command"`)
+        fish_complete = map(x->split(x, '\t')[1], fish_complete)
+        ret = REPL.REPLCompletions.Completion[REPL.REPLCompletions.PathCompletion(x) for x in fish_complete]
+        range = findlast(' ', partial)+1:length(partial)
+        ret = unique!(map(REPL.REPLCompletions.completion_text, ret))
+        should_complete = length(ret)==1
+        return ret, partial[range], should_complete
+    else
+        return REPL.complete_line(def_completions, s)
+    end
+end
+
+function setup(repl)
     if !isdefined(repl, :interface)
         repl.interface = REPL.setup_interface(repl)
     end
 
-    
-    function get_prompt()
+    function set_prompt(julsh)
         path = replace(pwd(), homedir() => "~")
-        "$path> "
+        branch = if isfile(".git/HEAD")
+            head = readchomp(".git/HEAD")
+            matching = match(r"ref: refs/heads/(.+)", head)
+            label = if isnothing(matching)
+                "detached"
+            else
+                matching.captures[1]
+            end
+            " $label"
+        else
+            ""
+        end
+        julsh.prompt = repeat(" ", length(path) + length(branch) + 2)
+        julsh.prompt_suffix = "\x1b[G\x1b[32m$path\x1b[36m$branch\x1b[39m> "
     end
 
     function parse_to_expr(s)
         args = split(s, ' ')
-        if !isnothing(Sys.which(args[1]))
+        if !isnothing(Sys.which(args[1])) && args[1] != "import"
             ast = parse(shell_grammer, s)[1]
             cmd = transform(toresult,ast)
             cmd = Base.cmd_gen(("fish", "-c", cmd))
-            run(ignorestatus(cmd));
-            print()
+            open(pipeline(stdin, ignorestatus(cmd), stdout), "r") do io
+                while true
+                    try
+                        sleep(0) # Required? Yes. Cursed? Yep!
+                        success(io)
+                        break
+                    catch
+                    end
+                end
+            end
+            set_prompt(julsh);
+            nothing
         elseif args[1] == "cd"
-            cd(expanduser(args[2]));
-            julsh.prompt = get_prompt();
+            if length(args) != 2
+                cd()
+            elseif !isdir(args[2])
+                println("$(args[2]): directory not found")
+            else
+                cd(expanduser(args[2]));
+            end
+            set_prompt(julsh);
             nothing
         else
             Meta.parse(s)
@@ -110,12 +164,20 @@ atreplinit() do repl
 
     julsh = initrepl(
         parse_to_expr, start_key='>', mode_name="Expr_mode",
-        prompt_text=get_prompt(), prompt_color=:magenta,
-        startup_text = false)
+        prompt_text="~> ", prompt_color=:magenta,
+        startup_text = false, completion_provider = JulishCompletionProvider())
 
-    main_mode = Base.active_repl.interface.modes[1]
-    help_mode = Base.active_repl.interface.modes[3]
-    pkg_mode = Base.active_repl.interface.modes[end]
+
+    set_prompt(julsh);
+
+    history_mode = Base.active_repl.interface.modes[4]
+    main_mode = history_mode.hp.mode_mapping[:julia]
+    help_mode = history_mode.hp.mode_mapping[:help]
+    pkg_mode = if haskey(history_mode.hp.mode_mapping, :pkg)
+        history_mode.hp.mode_mapping[:pkg]
+    else
+        Base.active_repl.interface.modes[end]
+    end
 
     help_mode.on_done = function (s, buf, ok::Bool)
         if !ok
@@ -131,12 +193,22 @@ atreplinit() do repl
         return LineEdit.transition(s, julsh)
     end
 
-    julsh.keymap_dict = LineEdit.keymap_merge(main_mode.keymap_dict, Dict{Any, Any}(
+    main_mode.keymap_dict['\b'] = function (s, args...)
+        if isempty(s) || position(LineEdit.buffer(s)) == 0
+            buf = copy(LineEdit.buffer(s))
+            LineEdit.transition(s, julsh) do
+                LineEdit.state(s, julsh).input_buffer = buf
+            end
+        else
+            LineEdit.edit_backspace(s)
+        end
+    end;
+
+    julsh.keymap_dict = LineEdit.keymap_merge(julsh.keymap_dict, Dict{Any, Any}(
         '\b' => function (s, args...)
             LineEdit.edit_backspace(s)
         end,
         ']' => function (s, args...)
-            # println("aa", isempty(s), position(LineEdit.buffer(s)))
             if isempty(s) || position(LineEdit.buffer(s)) == 0
                 buf = copy(LineEdit.buffer(s))
                 LineEdit.transition(s, pkg_mode) do
@@ -154,6 +226,16 @@ atreplinit() do repl
                 end
             else
                 LineEdit.edit_insert(s, '?')
+            end
+        end,
+        ',' => function (s, args...)
+            if isempty(s) || position(LineEdit.buffer(s)) == 0
+                buf = copy(LineEdit.buffer(s))
+                LineEdit.transition(s, main_mode) do
+                    LineEdit.state(s, main_mode).input_buffer = buf
+                end
+            else
+                LineEdit.edit_insert(s, ',')
             end
         end,
         "\x03" => function (s, args...)
@@ -201,6 +283,16 @@ atreplinit() do repl
             LineEdit.refresh_line(s)
         end,
     ))
+
     
     repl.interface.modes[1] = julsh
+
+    ENV["EDITOR"] = "kak"
+    InteractiveUtils.define_editor("kak", wait = true) do cmd, path, line
+        `$cmd +$line $path`
+    end
 end
+
+atreplinit(setup)
+
+# setup(Base.active_repl)

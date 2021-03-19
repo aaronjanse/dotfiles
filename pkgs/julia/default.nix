@@ -69,7 +69,8 @@ pkgs.symlinkJoin {
                 --prefix JULIA_DEPOT_PATH : \~/.julia \
                 --set JULIA_LOAD_PATH "@:@#.#:@stdenv:${./.}" \
                 --set JULIA_BINDIR $out/bin \
-                --add-flags "--banner=no"
+                --add-flags "--banner=no" \
+                --prefix PATH : "${pkgs.kakoune}/bin:${pkgs.fish}/bin"
   '';
   passthru = {
     shellPath = "/bin/julia";
