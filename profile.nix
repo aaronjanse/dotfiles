@@ -125,6 +125,7 @@ rec {
         qt514.full
         quaternion
         rclone
+        restic
         rustup
         signal-desktop
         spotify
