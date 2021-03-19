@@ -26,6 +26,13 @@
       fsType = "zfs";
     };
 
+  fileSystems."/persist" =
+    {
+      neededForBoot = true;
+      device = "zzroot/persist";
+      fsType = "zfs";
+    };
+
   fileSystems."/home/private" =
     {
       fsType = "tmpfs";
