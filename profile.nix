@@ -46,8 +46,6 @@ rec {
       name = "ajanse-env-common";
       # Include all package in `common` above
       paths = [ common ] ++ (with pkgs; [
-        elvish
-        fish
         age
         alacritty
         anki
@@ -69,8 +67,10 @@ rec {
         docker
         docker-compose
         element-desktop
+        elvish
         ffmpeg-full
         firefox-beta-bin
+        fish
         flameshot
         foliate
         gcc
