@@ -3,12 +3,14 @@ using Pkg
 Pkg.activate(".")
 
 using PackageCompiler
-using Plots, UnicodePlots, Primes, Latexify, Symbolics, Unitful, REPL
-using Distributions, ReplMaker, StringParserPEG
 
-create_sysimage( [:Plots, :UnicodePlots, :Primes, :Latexify,
-    :Symbolics, :Unitful, :REPL, :Pkg, :Distributions, :ReplMaker,
-    :StringParserPEG]
+import Pluto, REPL, PEG, Plots, UnicodePlots, REPLComboShell
+import InteractiveUtils
+
+create_sysimage([
+        :Pluto, :REPL, :PEG, :Plots, :UnicodePlots, :REPLComboShell,
+        :InteractiveUtils
+    ]
     , sysimage_path=ARGS[2]
-    , precompile_execution_file=ARGS[1]
+    , precompile_statements_file=ARGS[1],
 )

@@ -42,14 +42,18 @@ let
     extraBuildInputs = extraLibs;
   };
 
-  juliaSysimage = runCommand "julia-sysimage.so" { buildInputs = [ gcc ]; } ''
-    mkdir $TMP/jl
+  juliaSysimage = runCommand "julia-sysimage.so" { buildInputs = [ gcc fish ]; } ''
     cp ${./Manifest.toml} Manifest.toml
     cp ${./Project.toml} Project.toml
-    cp ${./precompile.jl} precompile.jl
-    chmod +w precompile.jl
-    cat ${./startup.jl} >> precompile.jl
-    JULIA_DEPOT_PATH=$TMP/jl ${juliaWithDepot}/bin/julia ${./generate_sysimage.jl} precompile.jl $out
+    export JULIA_DEPOT_PATH=$TMP/jl
+    mkdir -p $JULIA_DEPOT_PATH/config
+    cp ${./startup.jl} $JULIA_DEPOT_PATH/config/startup.jl
+    export JULIA_LOAD_PATH="@:@#.#:@stdenv:${./.}"
+    export PATH=${juliaWithDepot}/bin:$PATH
+    export HOME=$(mktemp -d)
+    julia ${./transcript.jl} --startup-file=no
+    cat ${./trace.jl} >> trace.jl
+    ${juliaWithDepot}/bin/julia ${./generate_sysimage.jl} trace.jl $out
   '';
 in
 pkgs.symlinkJoin {
@@ -59,7 +63,6 @@ pkgs.symlinkJoin {
   ];
   buildInputs = [ makeWrapper ];
   postBuild = ''
-    ls -lah $out/bin
     rm $out/bin/julia
     mkdir -p $out/etc/julia
     rm $out/etc/julia/startup.jl
@@ -72,6 +75,7 @@ pkgs.symlinkJoin {
                 --add-flags "--banner=no" \
                 --prefix PATH : "${pkgs.kakoune}/bin:${pkgs.fish}/bin"
   '';
+
   passthru = {
     shellPath = "/bin/julia";
   };
