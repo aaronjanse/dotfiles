@@ -2,11 +2,10 @@
 
 let
   theme = import ./theme.nix;
-  secrets = pkgs.callPackage
-    (import "${fetchGit {
+  secrets = import "${fetchGit {
       url = "ssh://git@github.com/aaronjanse/secrets.git";
-      rev = "5506a87f7d2604596d5b6f0f404d4fbbd68b971b";
-  }}") { };
+      rev = "c9b4cbbb8adb5cd72e40219b6a881d071ac56767";
+  }}" { inherit pkgs; };
 in
 {
   /* Nix preferences */
