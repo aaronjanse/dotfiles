@@ -48,7 +48,10 @@ let
     export JULIA_DEPOT_PATH=$TMP/jl
     mkdir -p $JULIA_DEPOT_PATH/config
     cp ${./startup.jl} $JULIA_DEPOT_PATH/config/startup.jl
-    export JULIA_LOAD_PATH="@:@#.#:@stdenv:${./.}"
+    PROJECT=$(mktemp -d)
+    cp ${./Project.toml} $PROJECT/Project.toml
+    cp ${./Manifest.toml} $PROJECT/Manifest.toml
+    export JULIA_LOAD_PATH="@:@#.#:@stdenv:$PROJECT"
     export PATH=${juliaWithDepot}/bin:$PATH
     export HOME=$(mktemp -d)
     julia ${./transcript.jl} --startup-file=no
@@ -67,13 +70,34 @@ pkgs.symlinkJoin {
     mkdir -p $out/etc/julia
     rm $out/etc/julia/startup.jl
     cp ${./startup.jl} $out/etc/julia/startup.jl
-    makeWrapper ${juliaWithDepot}/bin/julia $out/bin/julia \
+    makeWrapper ${juliaWithDepot}/bin/julia $out/bin/.julia \
                 --add-flags "-J${juliaSysimage}" \
                 --prefix JULIA_DEPOT_PATH : \~/.julia \
                 --set JULIA_LOAD_PATH "@:@#.#:@stdenv:${./.}" \
                 --set JULIA_BINDIR $out/bin \
                 --add-flags "--banner=no" \
                 --prefix PATH : "${pkgs.kakoune}/bin:${pkgs.fish}/bin"
+    
+    cat > $out/bin/julia << EOF
+    #!/bin/sh
+    has_param() {
+        local term="\$1"
+        shift
+        for arg; do
+            if [[ \$arg == "\$term" ]]; then
+                return 0
+            fi
+        done
+        return 1
+    }
+
+    if has_param '-c' "\$@"; then
+      bash "\$@"
+    else
+      $out/bin/.julia "\$@"
+    fi
+    EOF
+    chmod +x $out/bin/julia
   '';
 
   passthru = {
