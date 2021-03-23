@@ -347,10 +347,10 @@ in
   #   enable = true;
   #   enableExtensionPack = false; # takes a long time to build
   # };
-  virtualisation.docker = {
-    enable = true;
-    storageDriver = "zfs";
-  };
+  # virtualisation.docker = {
+  #   enable = true;
+  #   storageDriver = "zfs";
+  # };
 
   system.stateVersion = "19.03";
 }
