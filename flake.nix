@@ -57,6 +57,7 @@
 
       apps.x86_64-linux = {
         julia = { type = "app"; program = "${self.packages.x86_64-linux.julia}/bin/julia"; };
+        julish = { type = "app"; program = "${self.packages.x86_64-linux.julia}/bin/julish"; };
       };
     };
 }

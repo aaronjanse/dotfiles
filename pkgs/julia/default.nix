@@ -70,15 +70,14 @@ pkgs.symlinkJoin {
     mkdir -p $out/etc/julia
     rm $out/etc/julia/startup.jl
     cp ${./startup.jl} $out/etc/julia/startup.jl
-    makeWrapper ${juliaWithDepot}/bin/julia $out/bin/.julia \
+    makeWrapper ${juliaWithDepot}/bin/julia $out/bin/julia \
                 --add-flags "-J${juliaSysimage}" \
                 --prefix JULIA_DEPOT_PATH : \~/.julia \
                 --set JULIA_LOAD_PATH "@:@#.#:@stdenv:${./.}" \
-                --set JULIA_BINDIR $out/bin \
                 --add-flags "--banner=no" \
                 --prefix PATH : "${pkgs.kakoune}/bin:${pkgs.fish}/bin"
     
-    cat > $out/bin/julia << EOF
+    cat > $out/bin/julish << EOF
     #!/bin/sh
     has_param() {
         local term="\$1"
@@ -94,13 +93,13 @@ pkgs.symlinkJoin {
     if has_param '-c' "\$@"; then
       bash "\$@"
     else
-      $out/bin/.julia "\$@"
+      JULIA_BINDIR="$out/bin" $out/bin/julia "\$@" --banner=no
     fi
     EOF
-    chmod +x $out/bin/julia
+    chmod +x $out/bin/julish
   '';
 
   passthru = {
-    shellPath = "/bin/julia";
+    shellPath = "/bin/julish";
   };
 }

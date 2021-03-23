@@ -137,7 +137,7 @@ in
 
   /* Shell */
 
-  users.defaultUserShell = pkgs.julia;
+  users.defaultUserShell = "${pkgs.julia}/bin/julish";
   environment.pathsToLink = [ "/share/zsh" "/share/fish" ];
   environment.variables.MOZ_X11_EGL = "1";
   environment.variables.EDITOR = "${pkgs.kakoune}/bin/kak";

@@ -842,11 +842,11 @@ uuid = "3fa0cd96-eef1-5676-8a61-b3b8758bbffb"
 
 [[REPLComboShell]]
 deps = ["PEG", "REPL"]
-git-tree-sha1 = "24e671ade8db2d7b6334c5b0190bea5a8241fb97"
+git-tree-sha1 = "5ae9cd16cff13e8fc6c9c153c2420297a6758977"
 repo-rev = "master"
 repo-url = "https://github.com/aaronjanse/REPLComboShell.jl"
 uuid = "7999ad71-703a-42c8-bff7-678f9adb94f9"
-version = "0.2.1"
+version = "0.3.0"
 
 [[Random]]
 deps = ["Serialization"]
