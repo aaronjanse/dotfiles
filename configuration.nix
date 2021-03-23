@@ -139,7 +139,7 @@ in
 
   /* Shell */
 
-  users.defaultUserShell = pkgs.julia;
+  users.defaultUserShell = pkgs.zsh;
   environment.pathsToLink = [ "/share/zsh" "/share/fish" ];
   environment.variables.MOZ_X11_EGL = "1";
   environment.variables.EDITOR = "${pkgs.kakoune}/bin/kak";
