@@ -7,15 +7,20 @@
 
 rec {
   # Installed everywhere
-  common = pkgs.buildEnv {
+  common = pkgs.symlinkJoin {
     name = "ajanse-env-common";
     paths = with pkgs; [
       bat
       cloc
       curl
+      exa
+      du-dust
+      procs
       fd
       fzf
       git
+      iptables
+      tcpdump
       jq
       (python3.withPackages
         (ps:
@@ -41,7 +46,7 @@ rec {
   };
 
   # Installed on personal systems with a GUI
-  gui = pkgs.buildEnv
+  gui = pkgs.symlinkJoin
     {
       name = "ajanse-env-common";
       # Include all package in `common` above
@@ -68,6 +73,7 @@ rec {
         docker-compose
         element-desktop
         elvish
+        feh
         ffmpeg-full
         firefox-beta-bin
         fish
@@ -92,9 +98,7 @@ rec {
         ipfs-cluster
         jetbrains.idea-community
         julia
-        kak-lsp
         kakoune
-        kakounePlugins.kak-fzf
         kitty
         krita
         kubectl
@@ -132,7 +136,6 @@ rec {
         sqlite
         sqlitebrowser
         tailscale
-        telnet
         tldr
         tomb
         toot
