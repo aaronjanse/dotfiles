@@ -5,9 +5,8 @@ let
   secrets = pkgs.callPackage
     (import "${fetchGit {
       url = "ssh://git@github.com/aaronjanse/secrets.git";
-      rev = "04a3fba39cb448ab1a8cfab9a7a518eb4a6c1ac0";
-  }}")
-    { };
+      rev = "5506a87f7d2604596d5b6f0f404d4fbbd68b971b";
+  }}") { };
 in
 {
   /* Nix preferences */
@@ -164,7 +163,8 @@ in
     };
   };
 
-  services.mullvad-vpn.enable = true;
+  networking.wireguard.enable = true;
+  networking.wireguard.interfaces.wg0 = secrets.wireguard;
 
   /* Sound */
 
