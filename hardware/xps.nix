@@ -26,7 +26,7 @@
       fsType = "zfs";
     };
 
-  fileSystems."/persist" =
+  fileSystems."/safe" =
     {
       neededForBoot = true;
       device = "zzroot/persist";
