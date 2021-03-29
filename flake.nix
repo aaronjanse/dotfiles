@@ -4,19 +4,15 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    let
-      theme = import ./theme.nix;
-      pkgs = import nixpkgs {
-        system = "x86_64-linux";
-        config.allowUnfree = true;
-      };
-    in
-    {
-      # This defines my laptop's operating system. Here, I configure:
-      # - hardware-specific settings (e.g. wifi, filesystem, gpu)
-      # - workflow-specific settings (e.g. keybindings, window manager)
-      nixosConfigurations.xps-ajanse = nixpkgs.lib.nixosSystem {
+  outputs = { self, nixpkgs, flake-utils }: {
+    # This defines my laptop's operating system. Here, I configure:
+    # - hardware-specific settings (e.g. wifi, filesystem, gpu)
+    # - workflow-specific settings (e.g. keybindings, window manager)
+    nixosConfigurations.xps-ajanse = let pkgs = import nixpkgs {
+      system = "x86_64-linux";
+      config.allowUnfree = true;
+    }; in
+      nixpkgs.lib.nixosSystem {
         inherit (self.packages.x86_64-linux) pkgs;
         system = "x86_64-linux";
         modules = [
@@ -24,17 +20,24 @@
           ./hardware/xps.nix
         ];
       };
-      
-      # We then generate `packages` and `apps` for each platform:
-    } // flake-utils.lib.eachDefaultSystem (system: {
+    # We then generate `packages` and `apps` for each platform:
+  } // flake-utils.lib.eachDefaultSystem (system:
+    let
+      theme = import ./theme.nix;
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
+    in
+    rec {
       # This defines new packages along with packages I've modified. I use
       # wrapProgram to telling packages to look for dotfiles in /nix/store.
       packages = {
         # Combine nixpkgs with the packages below
-        pkgs = pkgs // removeAttrs self.packages.x86_64-linux [ "profiles" "pkgs" ];
+        pkgs = pkgs // removeAttrs self.packages.${system} [ "profiles" "pkgs" ];
 
         profiles = import ./profile.nix {
-          inherit (self.packages.x86_64-linux) pkgs;
+          inherit (self.packages.${system}) pkgs;
         };
 
         alacritty = pkgs.callPackage ./pkgs/alacritty.nix { inherit theme; };
@@ -54,13 +57,13 @@
         xsecurelock = pkgs.callPackage ./pkgs/xsecurelock.nix { };
         zsh = pkgs.callPackage ./pkgs/zsh {
           inherit theme;
-          inherit (self.packages.x86_64-linux) nix-zsh-completions direnv;
+          inherit (self.packages.${system}) nix-zsh-completions direnv;
         };
       };
 
       apps = {
-        julia = { type = "app"; program = "${self.packages.x86_64-linux.julia}/bin/julia"; };
-        julish = { type = "app"; program = "${self.packages.x86_64-linux.julia}/bin/julish"; };
+        julia = { type = "app"; program = "${self.packages.${system}.julia}/bin/julia"; };
+        julish = { type = "app"; program = "${self.packages.${system}.julia}/bin/julish"; };
       };
     });
 }
