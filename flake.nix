@@ -1,9 +1,10 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs";
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs }:
+  outputs = { self, nixpkgs, flake-utils }:
     let
       theme = import ./theme.nix;
       pkgs = import nixpkgs {
@@ -23,10 +24,12 @@
           ./hardware/xps.nix
         ];
       };
-
+      
+      # We then generate `packages` and `apps` for each platform:
+    } // flake-utils.lib.eachDefaultSystem (system: {
       # This defines new packages along with packages I've modified. I use
       # wrapProgram to telling packages to look for dotfiles in /nix/store.
-      packages.x86_64-linux = {
+      packages = {
         # Combine nixpkgs with the packages below
         pkgs = pkgs // removeAttrs self.packages.x86_64-linux [ "profiles" "pkgs" ];
 
@@ -55,9 +58,9 @@
         };
       };
 
-      apps.x86_64-linux = {
+      apps = {
         julia = { type = "app"; program = "${self.packages.x86_64-linux.julia}/bin/julia"; };
         julish = { type = "app"; program = "${self.packages.x86_64-linux.julia}/bin/julish"; };
       };
-    };
+    });
 }
