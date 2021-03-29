@@ -58,6 +58,18 @@ let
     cat ${./trace.jl} >> trace.jl
     ${juliaWithDepot}/bin/julia ${./generate_sysimage.jl} trace.jl $out
   '';
+
+  custom-python38 = python38.withPackages (ps: with ps; [
+    black
+    flake8
+    autopep8
+    pep8
+    pyls-mypy
+    mypy
+    setuptools
+    sympy
+    virtualenv
+  ]);
 in
 pkgs.symlinkJoin {
   name = "julia-custom";
@@ -75,6 +87,8 @@ pkgs.symlinkJoin {
                 --prefix JULIA_DEPOT_PATH : \~/.julia \
                 --set JULIA_LOAD_PATH "@:@#.#:@stdenv:${./.}" \
                 --add-flags "--banner=no" \
+                --set PYTHONPATH ${custom-python38}/lib/python3.8/site-packages \
+                --set PYTHON ${custom-python38}/bin/python \
                 --prefix PATH : "${pkgs.kakoune}/bin:${pkgs.fish}/bin"
     
     cat > $out/bin/julish << EOF
