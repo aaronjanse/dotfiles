@@ -101,8 +101,6 @@ rec {
         kakoune
         kitty
         krita
-        kubectl
-        kubernetes-helm
         libuuid.dev
         litecli
         lolcat
@@ -136,6 +134,7 @@ rec {
         sqlite
         sqlitebrowser
         tailscale
+        taskwarrior
         tldr
         tomb
         toot
