@@ -134,6 +134,18 @@ in
     ];
     createHome = true;
     home = "/home/ajanse";
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILBA0RNuRdCTQgK15gzpqMBHH9XBbkvE2z7orygz67jv" # Phone
+    ];
+  };
+
+  users.users.enclave = {
+    isNormalUser = true;
+    uid = 1001;
+    group = "users";
+    extraGroups = [ "wheel" ];
+    createHome = true;
+    home = "/home/enclave";
   };
 
   /* Shell */
@@ -243,6 +255,7 @@ in
     partOf = [ "graphical-session.target" ];
     path = with pkgs; [ feh lemonbar-xft ];
     script = ''
+      ${pkgs.xorg.xhost}/bin/xhost +
       feh --bg-fill ${pkgs.cal-wallpaper}
       lemonbar
     '';
