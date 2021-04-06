@@ -7,18 +7,19 @@
 
 rec {
   # Installed everywhere
-  common = pkgs.symlinkJoin {
+  common = pkgs.buildEnv {
     name = "ajanse-env-common";
     paths = with pkgs; [
       bat
+      binutils
       cloc
       curl
-      exa
       du-dust
-      procs
+      exa
       fd
       fzf
       git
+      procs
       iptables
       tcpdump
       jq
@@ -46,20 +47,18 @@ rec {
   };
 
   # Installed on personal systems with a GUI
-  gui = pkgs.symlinkJoin
+  gui = pkgs.buildEnv
     {
       name = "ajanse-env-common";
       # Include all package in `common` above
       paths = [ common ] ++ (with pkgs; [
         age
         alacritty
-        anki
-        audacity
+        aria2
         autorandr
         binutils
         blueman
         cachix
-        calibre
         chromium
         cmake
         cmatrix
@@ -67,6 +66,7 @@ rec {
         cryfs
         cryptsetup
         dbeaver
+        dgraph
         direnv
         discord
         docker
@@ -97,31 +97,31 @@ rec {
         ipfs
         ipfs-cluster
         jetbrains.idea-community
+        jetbrains.jdk
         julia
         kakoune
+        khard
         kitty
         krita
         libuuid.dev
         litecli
         lolcat
-        lsof
         matrix-synapse
         maven3
         mosh
         mullvad-vpn
         multimc
         nheko
+        nim
         nix-direnv
         nixpkgs-fmt
         nodejs
         nodePackages.insect
         nodePackages.typescript
         okular
-        openjdk
         pandoc
         pinentry-gtk2
         pkgconfig
-        powertop
         pstree
         python-language-server
         qt514.full
@@ -138,11 +138,14 @@ rec {
         tldr
         tomb
         toot
+        tor
+        vdirsyncer
         vscode
         w3m
         wireguard
         xclip
         xwiimote
+        yaml2json
         yarn
         youtube-dl
         zoom-us
