@@ -109,6 +109,8 @@ in
 
   /* Security */
 
+  services.openssh.enable = true;
+
   services.gnome3.gnome-keyring.enable = true;
 
   security.sudo = {
