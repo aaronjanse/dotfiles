@@ -46,16 +46,16 @@ symlinkJoin {
             sha256 = "sha256-o9CIjMlYQQVRdtTlOp9BAVjqrfFIhhdvzlyhlcOv5rY=";
           }
           {
+            name = "nim";
+            publisher = "kosz78";
+            version = "0.6.6";
+            sha256 = "sha256-sNW6Lvfyep8Hvas6cSufuRmol3q4mCyX8c/K78y8Nug=";
+          }
+          {
             name = "vsc-conceal";
             publisher = "brboer";
             version = "0.2.3";
             sha256 = "sha256-K3cNyUrCrakstnZ846TwJLipJx0WCNFxEyYSOdjaW00=";
-          }
-          {
-            name = "dance";
-            publisher = "gregoire";
-            version = "0.4.0";
-            sha256 = "sha256-xc+nmOw5sxs/+G0NtDBrGqxeD3XCIocHGqxNQbNDX7c=";
           }
           {
             name = "Go";
