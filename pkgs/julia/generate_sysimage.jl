@@ -10,7 +10,5 @@ import InteractiveUtils
 create_sysimage([
         :Pluto, :REPL, :PEG, :Plots, :UnicodePlots, :REPLComboShell,
         :InteractiveUtils
-    ]
-    , sysimage_path=ARGS[2]
-    , precompile_statements_file=ARGS[1],
+    ], sysimage_path=ARGS[2], precompile_statements_file=ARGS[1],
 )
