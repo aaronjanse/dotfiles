@@ -5,7 +5,8 @@ let
   secrets = import "${fetchGit {
       url = "ssh://git@github.com/aaronjanse/secrets.git";
       rev = "c9b4cbbb8adb5cd72e40219b6a881d071ac56767";
-  }}" { inherit pkgs; };
+  }}"
+    { inherit pkgs; };
 in
 {
   /* Nix preferences */
