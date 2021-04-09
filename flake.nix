@@ -49,6 +49,7 @@
         git = pkgs.callPackage ./pkgs/git.nix { };
         julia = pkgs.callPackage ./pkgs/julia { };
         lemonbar-xft = pkgs.callPackage ./pkgs/lemonbar-xft { };
+        neo4j = pkgs.callPackage ./pkgs/neo4j.nix { };
         mx-puppet-discord = pkgs.callPackage ./pkgs/mx-puppet-discord { };
         nix-zsh-completions = pkgs.callPackage ./pkgs/nix-zsh-completions.nix { };
         rofi = pkgs.callPackage ./pkgs/rofi.nix { inherit theme; };
