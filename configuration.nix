@@ -161,10 +161,18 @@ in
 
   /* Shell */
 
-  users.defaultUserShell = "${pkgs.julia}/bin/julish";
+  users.defaultUserShell = pkgs.fish;
   environment.pathsToLink = [ "/share/zsh" "/share/fish" ];
   environment.variables.MOZ_X11_EGL = "1";
   environment.variables.EDITOR = "${pkgs.kakoune}/bin/kak";
+  environment.etc."fish/config.fish".text = ''
+    set REPO_DIR $HOME/school/sp21-s367
+    set SNAPS_DIR $HOME/school/snaps-sp21-s367
+    set GOPATH $HOME/.go
+
+    alias enter="sudo ip netns exec wguard su - enclave"
+    alias ls=exa
+  '';
 
   /* Networking */
 
