@@ -70,6 +70,12 @@ symlinkJoin {
             sha256 = "03m44a3qmyz4mmfn1pzfcwc77wif4ldf2025nj9rys6lfhcz0x1n";
           }
           {
+            name = "svelte-vscode";
+            publisher = "svelte";
+            version = "104.9.0";
+            sha256 = "sha256-uC5nWMMmdANZx95CN73MY1BYJmkkOKAos2DOsQDJuS8=";
+          }
+          {
             name = "vscode-direnv";
             publisher = "rubymaniac";
             version = "0.0.2";
