@@ -52,9 +52,8 @@ let config = writeText ".zshrc" ''
   }
 
   if [ "$TERM" = "linux" ]; then
-    ${builtins.concatStringsSep "\n" (map
-      (color: "echo -en '\\e]P0${color}'")
-    theme.colors16)}
+    ${builtins.concatStringsSep "\n" (builtins.genList
+      (i: "echo -en '\\e]P${builtins.toString i}${builtins.elemAt theme.colors16 i}'") 10)}
     clear
   fi
 
