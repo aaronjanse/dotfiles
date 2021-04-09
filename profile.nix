@@ -103,6 +103,7 @@ rec {
         khard
         kitty
         krita
+        libreoffice
         libuuid.dev
         litecli
         lolcat
