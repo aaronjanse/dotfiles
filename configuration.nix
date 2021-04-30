@@ -266,7 +266,7 @@ in
     };
   };
 
-  services.picom.enable = true;
+  services.picom.enable = false;
 
   systemd.user.services.gui-decor = {
     description = "status bar and wallpaper service";
