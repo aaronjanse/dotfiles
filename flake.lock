@@ -2,11 +2,11 @@
   "nodes": {
     "flake-utils": {
       "locked": {
-        "lastModified": 1614513358,
-        "narHash": "sha256-LakhOx3S1dRjnh0b5Dg3mbZyH0ToC9I8Y2wKSkBaTzU=",
+        "lastModified": 1619345332,
+        "narHash": "sha256-qHnQkEp1uklKTpx3MvKtY6xzgcqXDsz5nLilbbuL+3A=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "5466c5bbece17adaab2d82fae80b46e807611bf3",
+        "rev": "2ebf2558e5bf978c7fb8ea927dfaed8fefab2e28",
         "type": "github"
       },
       "original": {
@@ -17,15 +17,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1616984871,
-        "narHash": "sha256-JEmeO5zkrvp+FPBJBUTWuAjkYq0gyXYvEIKrcvuYPdo=",
+        "lastModified": 1620071687,
+        "narHash": "sha256-Y6unKi5WUIYTSD1IHY0D3a710OJfTQ7ugBApBGq6xLc=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "76bd95316205e1eaf472b04fceef654f0e7639a1",
+        "rev": "33a5b50649f5b6925826a637ce37cef1981f6799",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
+        "ref": "gnome-40",
         "repo": "nixpkgs",
         "type": "github"
       }

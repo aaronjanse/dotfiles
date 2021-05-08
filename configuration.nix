@@ -251,45 +251,11 @@ in
 
   services.xserver = {
     enable = true;
-    useGlamor = true;
-    windowManager.i3 = {
+    displayManager.gdm = {
       enable = true;
-      package = pkgs.i3-gaps;
-      configFile = import ./i3-config.nix pkgs;
+      wayland = true;
     };
-    displayManager = {
-      defaultSession = "none+i3";
-      autoLogin = {
-        enable = true;
-        user = "ajanse";
-      };
-    };
-  };
-
-  services.picom.enable = false;
-
-  systemd.user.services.gui-decor = {
-    description = "status bar and wallpaper service";
-    wantedBy = [ "graphical-session.target" ];
-    partOf = [ "graphical-session.target" ];
-    path = with pkgs; [ feh lemonbar-xft ];
-    script = ''
-      ${pkgs.xorg.xhost}/bin/xhost +
-      feh --bg-fill ${pkgs.cal-wallpaper}
-      lemonbar
-    '';
-  };
-
-  systemd.user.services.dunst = {
-    description = "notification daemon";
-    wantedBy = [ "graphical-session.target" ];
-    partOf = [ "graphical-session.target" ];
-    script = "${pkgs.dunst}/bin/dunst";
-  };
-
-  programs.xss-lock = {
-    enable = true;
-    lockerCommand = "${pkgs.xsecurelock}/bin/xsecurelock";
+    desktopManager.gnome3.enable = true;
   };
 
   programs.light.enable = true;
