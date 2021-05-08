@@ -1,4 +1,4 @@
-{ vscode, vscode-extensions, vscode-with-extensions, vscode-utils, texlive, symlinkJoin, makeWrapper }:
+{ lib, jupyter, vscode, vscode-extensions, vscode-with-extensions, vscode-utils, texlive, symlinkJoin, makeWrapper }:
 symlinkJoin {
   name = "vscode-custom";
   postBuild = ''
@@ -40,10 +40,10 @@ symlinkJoin {
       ] ++ vscode-utils.extensionsFromVscodeMarketplace
         [
           {
-            name = "org-mode";
-            publisher = "vscode-org-mode";
-            version = "1.0.0";
-            sha256 = "sha256-o9CIjMlYQQVRdtTlOp9BAVjqrfFIhhdvzlyhlcOv5rY=";
+            name = "coq";
+            publisher = "ruoz";
+            version = "0.3.2";
+            sha256 = "sha256-UBlczlSwNvQo9dSpSdNFtqC6gHnchHQCODP2EUfe9zI=";
           }
           {
             name = "nim";
@@ -62,12 +62,6 @@ symlinkJoin {
             publisher = "golang";
             version = "0.18.1";
             sha256 = "sha256-b2Wa3TULQQnBm1/xnDCB9SZjE+Wxz5wBttjDEtf8qlE=";
-          }
-          {
-            name = "theme-dracula-refined";
-            publisher = "mathcale";
-            version = "2.22.1";
-            sha256 = "03m44a3qmyz4mmfn1pzfcwc77wif4ldf2025nj9rys6lfhcz0x1n";
           }
           {
             name = "svelte-vscode";
