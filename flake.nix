@@ -48,7 +48,7 @@
         foliate = pkgs.libsForQt5.callPackage ./pkgs/foliate.nix { };
         git = pkgs.callPackage ./pkgs/git.nix { };
         julia = pkgs.callPackage ./pkgs/julia { };
-        lemonbar-xft = pkgs.callPackage ./pkgs/lemonbar-xft { };
+        lemonbar-xft = pkgs.callPackage ./pkgs/lemonbar-xft { inherit theme; };
         neo4j = pkgs.callPackage ./pkgs/neo4j.nix { };
         mx-puppet-discord = pkgs.callPackage ./pkgs/mx-puppet-discord { };
         nix-zsh-completions = pkgs.callPackage ./pkgs/nix-zsh-completions.nix { };

@@ -1,4 +1,4 @@
-{ lemonbar-xft, runCommand, python36, fetchFromGitHub, alsaUtils, mullvad-vpn, playerctl }:
+{ lemonbar-xft, runCommand, python36, fetchFromGitHub, alsaUtils, mullvad-vpn, playerctl, theme }:
 
 runCommand "lemonbar-custom"
 {
@@ -18,7 +18,7 @@ runCommand "lemonbar-custom"
   $PYTHON/bin/python3 -u ${./status.py} | $LEMONBAR/bin/lemonbar \
       -f "Overpass Mono:pixelsize=25;0" -f "Font Awesome 5 Free:pixelsize=25;0" \
       -f "Font Awesome 5 Free:style=Solid:pixelsize=25;0" -f "Font Awesome 5 Brands:pixelsize=25;0" \
-      -f "Source Code Pro:pixelsize=25;0" -u 4 -g x60 -B "#00000000"
+      -f "Source Code Pro:pixelsize=25;0" -u 4 -g x60 -B "${theme.background}"
   EOF
   chmod +x $out/bin/lemonbar
 ''
