@@ -116,6 +116,21 @@ in
   boot.cleanTmpDir = true;
   boot.tmpOnTmpfs = true;
 
+  systemd = {
+    timers.zbak-snap = {
+      wantedBy = [ "timers.target" ];
+      partOf = [ "zbak-snap.service" ];
+      timerConfig.OnCalendar = "*:0/15";
+    };
+    services.zbak-snap = {
+      serviceConfig.Type = "oneshot";
+      path = [ pkgs.zbak ];
+      script = ''
+        zbak snap zzroot/code --keep 7d24h4f
+      '';
+    };
+  };
+
   /* Security */
 
   services.openssh.enable = true;
