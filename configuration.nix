@@ -233,10 +233,12 @@ in
     package = pkgs.pulseaudioFull;
   };
 
-  /* Yubikey */
-
   services.pcscd.enable = true;
-  services.udev.packages = [ pkgs.yubikey-personalization pkgs.libu2f-host ];
+  services.udev.packages = [
+    pkgs.yubikey-personalization
+    pkgs.libu2f-host
+    pkgs.android-udev-rules
+  ];
 
   # systemd.user.sockets.gpg-agent-ssh = {
   #   wantedBy = [ "sockets.target" ];
