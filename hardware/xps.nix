@@ -8,41 +8,46 @@
 
   networking.hostId = "188c5100";
 
-  fileSystems."/" =
-    {
-      device = "zzroot/root";
-      fsType = "zfs";
-    };
+  fileSystems."/" = {
+    device = "zzroot/root";
+    fsType = "zfs";
+  };
 
-  fileSystems."/nix" =
-    {
-      device = "zzroot/nix";
-      fsType = "zfs";
-    };
+  fileSystems."/nix" = {
+    device = "zzroot/nix";
+    fsType = "zfs";
+  };
 
-  fileSystems."/home" =
-    {
-      device = "zzroot/home";
-      fsType = "zfs";
-    };
+  fileSystems."/home" = {
+    device = "zzroot/home";
+    fsType = "zfs";
+  };
 
-  fileSystems."/safe" =
-    {
-      neededForBoot = true;
-      device = "zzroot/persist";
-      fsType = "zfs";
-    };
+  fileSystems."/safe" = {
+    neededForBoot = true;
+    device = "zzroot/persist";
+    fsType = "zfs";
+  };
 
-  fileSystems."/home/private" =
-    {
-      fsType = "tmpfs";
-    };
+  fileSystems."/mnt/code" = {
+    device = "zzroot/code";
+    fsType = "zfs";
+  };
 
-  fileSystems."/boot" =
-    {
-      device = "/dev/disk/by-uuid/1752-74D2";
-      fsType = "vfat";
-    };
+  fileSystems."/annex" = {
+    neededForBoot = true;
+    device = "zzroot/annex";
+    fsType = "zfs";
+  };
+
+  fileSystems."/home/private" = {
+    fsType = "tmpfs";
+  };
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/1752-74D2";
+    fsType = "vfat";
+  };
 
   swapDevices = [ ];
 
