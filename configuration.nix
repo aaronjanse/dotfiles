@@ -129,7 +129,9 @@ in
 
   services.openssh.enable = true;
 
-  services.gnome3.gnome-keyring.enable = true;
+  services.gnome.gnome-keyring.enable = true;
+
+  programs.adb.enable = true;
 
   security.sudo = {
     enable = true;
