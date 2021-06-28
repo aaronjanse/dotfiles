@@ -152,6 +152,7 @@ in
       "video"
       "audio"
       "vboxusers"
+      "adbusers"
       "libvirtd"
       "kvm"
       "adbusers"
