@@ -30,6 +30,12 @@ in
   hardware.enableRedistributableFirmware = true;
   powerManagement.powertop.enable = true;
 
+  # Disable sleep
+  # # systemd.targets.sleep.enable = false;
+  # # systemd.targets.suspend.enable = false;
+  # # systemd.targets.hibernate.enable = false;
+  # # systemd.targets.hybrid-sleep.enable = false;
+
   boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
   hardware.opengl = {
     enable = true;
