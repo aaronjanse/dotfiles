@@ -2,11 +2,11 @@
   "nodes": {
     "flake-utils": {
       "locked": {
-        "lastModified": 1619345332,
-        "narHash": "sha256-qHnQkEp1uklKTpx3MvKtY6xzgcqXDsz5nLilbbuL+3A=",
+        "lastModified": 1623875721,
+        "narHash": "sha256-A8BU7bjS5GirpAUv4QA+QnJ4CceLHkcXdRp4xITDB0s=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "2ebf2558e5bf978c7fb8ea927dfaed8fefab2e28",
+        "rev": "f7e004a55b120c02ecb6219596820fcd32ca8772",
         "type": "github"
       },
       "original": {
@@ -15,26 +15,128 @@
         "type": "github"
       }
     },
-    "nixpkgs": {
+    "flake-utils_2": {
       "locked": {
-        "lastModified": 1620071687,
-        "narHash": "sha256-Y6unKi5WUIYTSD1IHY0D3a710OJfTQ7ugBApBGq6xLc=",
+        "lastModified": 1623875721,
+        "narHash": "sha256-A8BU7bjS5GirpAUv4QA+QnJ4CceLHkcXdRp4xITDB0s=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "f7e004a55b120c02ecb6219596820fcd32ca8772",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "nixops": {
+      "inputs": {
+        "nixpkgs": "nixpkgs",
+        "utils": "utils"
+      },
+      "locked": {
+        "lastModified": 1614711931,
+        "narHash": "sha256-In+aL5PrOWCjEMDBv+Yv93epJijt24NfGY6Vdy/aIVo=",
         "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "33a5b50649f5b6925826a637ce37cef1981f6799",
+        "repo": "nixops",
+        "rev": "45256745cef246dabe1ae8a7d109988f190cd7ef",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "gnome-40",
+        "repo": "nixops",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1612282043,
+        "narHash": "sha256-MzoN8nI1eydYHuWBAXBcw9Na0XndZHa/VjoxZRWSX68=",
+        "owner": "NixOS",
         "repo": "nixpkgs",
+        "rev": "fab6fcdceb2560a4ab943830a2b1632458c7a6ff",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1624656607,
+        "narHash": "sha256-jWVM6RP8WdRV1l0Z36hA/y6kl9BmasYVa9TpKkjRMLI=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "b72bde7c4a1f9c9bf1a161f0c267186ce3c6483c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-21.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1608536340,
+        "narHash": "sha256-+fUjCLY4KZEyhLU5tmr6qEed3NsqTrc8Pujv+wxNwHs=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "832ae4311a44ddfee300d54e17268f448b8ea8ea",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "832ae4311a44ddfee300d54e17268f448b8ea8ea",
         "type": "github"
       }
     },
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs"
+        "nixops": "nixops",
+        "nixpkgs": "nixpkgs_2",
+        "zbak": "zbak"
+      }
+    },
+    "utils": {
+      "locked": {
+        "lastModified": 1610051610,
+        "narHash": "sha256-U9rPz/usA1/Aohhk7Cmc2gBrEEKRzcW4nwPWMPwja4Y=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "3982c9903e93927c2164caa727cd3f6a0e6d14cc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "zbak": {
+      "inputs": {
+        "flake-utils": "flake-utils_2",
+        "nixpkgs": "nixpkgs_3"
+      },
+      "locked": {
+        "lastModified": 1624751526,
+        "narHash": "sha256-XP+MN6G+hCwRjkeuP27ns2+6itKEux2Qe4irgJIphJk=",
+        "owner": "aaronjanse",
+        "repo": "zbak",
+        "rev": "28598cab6e50e6c11bd4e5ae2a3fc5daed30aa90",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aaronjanse",
+        "repo": "zbak",
+        "type": "github"
       }
     }
   },

@@ -1,44 +1,34 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/gnome-40";
-    flake-utils.url = "github:numtide/flake-utils";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-21.05";
+    nixops.url = "github:nixos/nixops";
+    zbak.url = "github:aaronjanse/zbak";
   };
 
-  outputs = { self, nixpkgs, flake-utils }: {
-    # This defines my laptop's operating system. Here, I configure:
-    # - hardware-specific settings (e.g. wifi, filesystem, gpu)
-    # - workflow-specific settings (e.g. keybindings, window manager)
-    nixosConfigurations.xps-ajanse = let pkgs = import nixpkgs {
+  outputs = { self, nixpkgs, ... } @ args: {
+    nixosConfigurations.xps-ajanse = nixpkgs.lib.nixosSystem {
+      inherit (self.packages.x86_64-linux) pkgs;
       system = "x86_64-linux";
-      config.allowUnfree = true;
-    }; in
-      nixpkgs.lib.nixosSystem {
-        inherit (self.packages.x86_64-linux) pkgs;
-        system = "x86_64-linux";
-        modules = [
-          ./configuration.nix
-          ./hardware/xps.nix
-        ];
-      };
-    # We then generate `packages` and `apps` for each platform:
-  } // flake-utils.lib.eachDefaultSystem (system:
-    let
-      theme = import ./theme.nix;
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      };
-    in
-    rec {
-      # This defines new packages along with packages I've modified. I use
-      # wrapProgram to telling packages to look for dotfiles in /nix/store.
-      packages = {
-        # Combine nixpkgs with the packages below
+      modules = [
+        ./configuration.nix
+        ./hardware/xps.nix
+      ];
+    };
+
+    packages = nixpkgs.lib.genAttrs nixpkgs.lib.platforms.all (system:
+      let
+        pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
+        theme = import ./theme.nix;
+      in
+      {
         pkgs = pkgs // removeAttrs self.packages.${system} [ "profiles" "pkgs" ];
 
         profiles = import ./profile.nix {
           inherit (self.packages.${system}) pkgs;
         };
+
+        nixops = args.nixops.defaultPackage.${system};
+        zbak = args.zbak.defaultPackage.${system};
 
         alacritty = pkgs.callPackage ./pkgs/alacritty.nix { inherit theme; };
         cal-wallpaper = pkgs.callPackage ./pkgs/cal-wallpaper { inherit theme; };
@@ -49,22 +39,19 @@
         git = pkgs.callPackage ./pkgs/git.nix { };
         julia = pkgs.callPackage ./pkgs/julia { };
         lemonbar-xft = pkgs.callPackage ./pkgs/lemonbar-xft { inherit theme; };
-        neo4j = pkgs.callPackage ./pkgs/neo4j.nix { };
         mx-puppet-discord = pkgs.callPackage ./pkgs/mx-puppet-discord { };
+        neo4j = pkgs.callPackage ./pkgs/neo4j.nix { };
         nix-zsh-completions = pkgs.callPackage ./pkgs/nix-zsh-completions.nix { };
         rofi = pkgs.callPackage ./pkgs/rofi.nix { inherit theme; };
         signal-desktop = pkgs.callPackage ./pkgs/signal-desktop.nix { inherit theme; };
         vscode = pkgs.callPackage ./pkgs/vscode.nix { };
+        weylus = pkgs.callPackage ./pkgs/weylus.nix { };
         xsecurelock = pkgs.callPackage ./pkgs/xsecurelock.nix { };
         zsh = pkgs.callPackage ./pkgs/zsh {
           inherit theme;
           inherit (self.packages.${system}) nix-zsh-completions direnv;
         };
-      };
-
-      apps = {
-        julia = { type = "app"; program = "${self.packages.${system}.julia}/bin/julia"; };
-        julish = { type = "app"; program = "${self.packages.${system}.julia}/bin/julish"; };
-      };
-    });
+      }
+    );
+  };
 }
