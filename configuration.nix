@@ -26,7 +26,7 @@ in
 
   boot.kernelParams = [ "mem_sleep_default=deep" ];
   boot.supportedFilesystems = [ "zfs" ];
-  boot.zfs.requestEncryptionCredentials = true;
+  boot.zfs.requestEncryptionCredentials = [ "zzroot" ];
   hardware.enableRedistributableFirmware = true;
   powerManagement.powertop.enable = true;
 
