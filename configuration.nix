@@ -206,6 +206,9 @@ in
 
   services.tailscale.enable = true;
 
+  services.rpcbind.enable = true;
+  services.nfs.server.enable = true;
+
   networking.wireguard.enable = true;
   networking.wireguard.interfaces.wg0 = secrets.wireguard;
 
