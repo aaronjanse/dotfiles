@@ -54,14 +54,14 @@ in
     vanilla-dmz
   ];
 
-  services.neo4j = {
-    enable = true;
-    bolt.tlsLevel = "DISABLED";
-    https.enable = false;
-    extraServerConfig = ''
-      apoc.export.file.enabled=true
-    '';
-  };
+  # services.neo4j = {
+  #   enable = true;
+  #   bolt.tlsLevel = "DISABLED";
+  #   https.enable = false;
+  #   extraServerConfig = ''
+  #     apoc.export.file.enabled=true
+  #   '';
+  # };
 
   services.postgresql = {
     enable = true;
