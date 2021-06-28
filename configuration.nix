@@ -199,7 +199,7 @@ in
     firewall = {
       enable = true;
       allowedTCPPorts = [ 80 ];
-      allowedUDPPorts = [ 51820 ];
+      allowedUDPPorts = [ 51820 41641 ];
       trustedInterfaces = [ "wg0" ];
     };
     hosts = {
@@ -208,6 +208,8 @@ in
       "127.0.0.1" = [ "localhost.dev" "local.metaculus.com" ];
     };
   };
+
+  services.tailscale.enable = true;
 
   networking.wireguard.enable = true;
   networking.wireguard.interfaces.wg0 = secrets.wireguard;
