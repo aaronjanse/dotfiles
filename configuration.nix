@@ -123,6 +123,23 @@ in
         zbak snap zzroot/code --keep 7d24h4f
       '';
     };
+
+    # timers.zbak-send = {
+    #   wantedBy = [ "timers.target" ];
+    #   partOf = [ "zbak-send.service" ];
+    #   timerConfig.OnCalendar = "*:10,40";
+    # };
+    # services.zbak-send = {
+    #   serviceConfig.Type = "oneshot";
+    #   path = [ pkgs.zbak ];
+    #   script = ''
+    #     [ $(cat /sys/class/power_supply/BAT0/status) = "Full" ] && \
+    #       zbak send --name ssd500gb \
+    #                 --from zzroot/code \
+    #                 --to root@100.112.12.44:rpool/code \
+    #                 --keep 6m4w7d
+    #   '';
+    # };
   };
 
   /* Security */
