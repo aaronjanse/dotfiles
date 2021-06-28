@@ -4,7 +4,7 @@ let
   theme = import ./theme.nix;
   secrets = import "${fetchGit {
       url = "ssh://git@github.com/aaronjanse/secrets.git";
-      rev = "c9b4cbbb8adb5cd72e40219b6a881d071ac56767";
+      rev = "16fe9eb16fb4e32d5b2b3e5d4d5cbc3ac8e0ae32";
   }}"
     { inherit pkgs; };
 in
