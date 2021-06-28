@@ -274,7 +274,7 @@ in
       enable = true;
       wayland = true;
     };
-    desktopManager.gnome3.enable = true;
+    desktopManager.gnome.enable = true;
   };
 
   programs.light.enable = true;
