@@ -1,1 +1,0 @@
-This is for files generates by `nixos-generate-config`, generally related to filesystems.

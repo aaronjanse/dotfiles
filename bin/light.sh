@@ -1,0 +1,1 @@
+sudo light -S 20

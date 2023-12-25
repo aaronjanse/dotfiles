@@ -1,5 +1,4 @@
 nixpkgs:
-
 let
   workspaceIndicies = [ 1 2 3 4 5 6 7 8 9 10 ];
   mappings = mod: ''
@@ -21,20 +20,10 @@ let
     bindsym ${mod}+Left focus left
     bindsym ${mod}+Right focus right
 
-    bindsym ${mod}+i focus up
-    bindsym ${mod}+k focus down
-    bindsym ${mod}+j focus left
-    bindsym ${mod}+l focus right
-
     bindsym ${mod}+Shift+Up move up
     bindsym ${mod}+Shift+Down move down
     bindsym ${mod}+Shift+Left move left
     bindsym ${mod}+Shift+Right move right
-
-    bindsym ${mod}+Shift+I move up
-    bindsym ${mod}+Shift+K move down
-    bindsym ${mod}+Shift+J move left
-    bindsym ${mod}+Shift+L move right
 
     bindsym ${mod}+bracketleft focus left
     bindsym ${mod}+bracketright focus right
@@ -43,15 +32,12 @@ let
 
     bindsym ${mod}+Return exec ${nixpkgs.alacritty}/bin/alacritty
 
-    bindsym ${mod}+Shift+X exec ${nixpkgs.writeScript "clear-clipboard.sh" ''
-      echo -n "" | xclip -selection "clipboard"
-    ''}
+    ${if true then "" else "bindsym ${mod}+Shift+X exec ${../bin/clear-clipboard.sh}"}
 
     bindsym ${mod}+d exec ${nixpkgs.rofi}/bin/rofi -show run
     bindsym ${mod}+Shift+d exec ${nixpkgs.rofi}/bin/rofi -modi 'drun' -show drun
 
-    bindsym ${mod}+slash exec ${nixpkgs.flameshot}/bin/flameshot gui
-    bindsym ${mod}+period exec ${nixpkgs.rofimoji}/bin/rofimoji
+    bindsyn ${mod}+Shift+s exec ${nixpkgs.flameshot}/bin/flameshot gui
 
     bindsym ${mod}+equal workspace next
     bindsym ${mod}+minus workspace prev
@@ -82,7 +68,7 @@ let
 in
 nixpkgs.writeText "i3-config" ''
   font pango:Roboto Mono 8
-  floating_modifier Mod1
+  floating_modifier Shift
   new_window pixel 1
   new_float pixel 2
   hide_edge_borders none
@@ -100,25 +86,18 @@ nixpkgs.writeText "i3-config" ''
   client.placeholder #000000 #0c0c0c #ffffff #000000 #0c0c0c
   client.background #ffffff
 
-  for_window [class="Nautilus"] floating enable
-  for_window [title="Gnuplot"] floating enable
-  for_window [class="tk"] floating enable
-  for_window [class="gksqt"] floating enable
-  for_window [class="zoom" instance="zoom"] floating enable
-  for_window [window_role="pop-up"] floating enable
+  bindsym F1 exec ${nixpkgs.light}/bin/light -U 5
+  bindsym F2 exec ${nixpkgs.light}/bin/light -A 5
 
-  # bindsym Shift+F1 exec light -S 0
-  # bindsym F1 exec ${nixpkgs.light}/bin/light -U 5
-  # bindsym F2 exec ${nixpkgs.light}/bin/light -A 5
-
+  bindsym Shift+F1 exec light -S 0
+  bindsym XF86AudioLowerVolume exec amixer set Master 5%-
+  bindsym XF86AudioMute exec amixer set Master 0%
   bindsym XF86AudioNext exec ${nixpkgs.playerctl}/bin/playerctl next
   bindsym XF86AudioPause exec ${nixpkgs.playerctl}/bin/playerctl pause
   bindsym XF86AudioPrev exec ${nixpkgs.playerctl}/bin/playerctl previous
   bindsym XF86AudioRaiseVolume exec amixer set Master 5%+
-  bindsym XF86AudioLowerVolume exec amixer set Master 5%-
-  bindsym XF86AudioMute exec amixer set Master 0%
-  bindsym XF86MonBrightnessDown exec ${nixpkgs.light}/bin/light -U 5
-  bindsym XF86MonBrightnessUp exec ${nixpkgs.light}/bin/light -A 5
+  bindsym XF86MonBrightnessDown exec light -U 5
+  bindsym XF86MonBrightnessUp exec light -A 5
 
 
   bindsym Mod4+Shift+M mode defaultWin
